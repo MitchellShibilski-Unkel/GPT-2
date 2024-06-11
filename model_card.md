@@ -1,6 +1,7 @@
 # GPT-2 model card
 
-Last updated: November 2019
+Last Updated (*Official): November 2019 <br />
+Last Updated (*This Repo): June 2024
 
 Inspired by [Model Cards for Model Reporting (Mitchell et al.)](https://arxiv.org/abs/1810.03993), we’re providing some accompanying information about the GPT-2 family of models we're releasing.
 
@@ -14,7 +15,7 @@ February 2019, trained on data that cuts off at the end of 2017.
 
 ### Model type
 
-Language model
+Large Language Model (LLM)
 
 ### Model version
 
