@@ -1,24 +1,13 @@
 #!/usr/bin/env python3
 
+import os
 import fire
 import json
-import os
 import numpy as np
 import tensorflow as tf
-
 import model, sample, encoder
 
-def sample_model(
-    model_name='124M',
-    seed=None,
-    nsamples=0,
-    batch_size=1,
-    length=None,
-    temperature=1,
-    top_k=0,
-    top_p=1,
-    models_dir='models',
-):
+def GPT2_Unc(model_name='124M', seed=None, nsamples=0, batch_size=1, length=None, temperature=1, top_k=0, top_p=1, models_dir='models'):
     """
     Run the sample_model
     :model_name=124M : String, which model to use
@@ -47,8 +36,8 @@ def sample_model(
         hparams.override_from_dict(json.load(f))
 
     if length is None:
-        length = hparams.n_ctx
-    elif length > hparams.n_ctx:
+        length = hparams.n_ctx 
+    elif length > hparams.n_ctx: 
         raise ValueError("Can't get samples longer than window size: %s" % hparams.n_ctx)
 
     with tf.Session(graph=tf.Graph()) as sess:
@@ -76,5 +65,4 @@ def sample_model(
                 print(text)
 
 if __name__ == '__main__':
-    fire.Fire(sample_model)
-
+    fire.Fire(GPT2_Unc)

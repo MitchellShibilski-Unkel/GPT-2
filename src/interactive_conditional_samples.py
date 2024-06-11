@@ -1,24 +1,13 @@
 #!/usr/bin/env python3
 
+import os
 import fire
 import json
-import os
 import numpy as np
 import tensorflow as tf
-
 import model, sample, encoder
 
-def interact_model(
-    model_name='124M',
-    seed=None,
-    nsamples=1,
-    batch_size=1,
-    length=None,
-    temperature=1,
-    top_k=0,
-    top_p=1,
-    models_dir='models',
-):
+def GPT2_Con(model_name='124M', seed=None, nsamples=1, batch_size=1, length=None, temperature=1, top_k=0, top_p=1, models_dir='models'):
     """
     Interactively run the model
     :model_name=124M : String, which model to use
@@ -88,5 +77,4 @@ def interact_model(
             print("=" * 80)
 
 if __name__ == '__main__':
-    fire.Fire(interact_model)
-
+    fire.Fire(GPT2_Con)
