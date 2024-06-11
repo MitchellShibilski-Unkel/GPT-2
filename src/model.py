@@ -22,7 +22,7 @@ def softmax(x, axis=-1):
     return ex / tf.reduce_sum(ex, axis=axis, keepdims=True)
 
 def gelu(x):
-    return 0.5 * x * (1 + np.tanh(np.sqrt(2 / np.pi) * (x + 0.044715 * tf.pow(x, 3))))
+    return 0.5 * x * (1 + tf.tanh(np.sqrt(2 / np.pi) * (x + 0.044715 * (x ** 3))))
 
 def norm(x, scope, *, axis=-1, epsilon=1e-5):
     # --- Normalize to mean = 0, std = 1, then do a diagonal affine transform --- #
