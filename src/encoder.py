@@ -32,17 +32,19 @@ def get_pairs(word):
 
     Word is represented as tuple of symbols (symbols being variable-length strings).
     """
+    
     pairs = set()
     prev_char = word[0]
     for char in word[1:]:
         pairs.add((prev_char, char))
         prev_char = char
+        
     return pairs
 
 class Encoder:
     def __init__(self, encoder, bpe_merges, errors='replace'):
         self.encoder = encoder
-        self.decoder = {v:k for k,v in self.encoder.items()}
+        self.decoder = {v:k for k, v in self.encoder.items()}
         self.errors = errors # how to handle errors in decoding
         self.byte_encoder = bytes_to_unicode()
         self.byte_decoder = {v:k for k, v in self.byte_encoder.items()}
