@@ -20,6 +20,20 @@ This repository is meant to be a starting point for researchers and engineers to
 
 For basic information, see our [model card](./model_card.md).
 
+## gpt-2-output-dataset
+
+This dataset contains:
+- 250K documents from the WebText test set
+- For each GPT-2 model (trained on the WebText training set), 250K random samples (temperature 1, no truncation) and 250K samples generated with Top-K 40 truncation
+
+We look forward to the research produced using this data!
+
+### Download Dataset
+
+For each model, we have a training split of 250K generated examples, as well as validation and test splits of 5K examples.
+
+All data is located in Google Cloud Storage, under the directory `gs://gpt-2/output-dataset/v1`.  (NOTE: everything has been migrated to Azure `https://openaipublic.blob.core.windows.net/gpt-2/output-dataset/v1/`)
+
 ### Some caveats
 
 - GPT-2 models' robustness and worst case behaviors are not well-understood.  As with any machine-learned model, carefully evaluate GPT-2 for your use case, especially if used without fine-tuning or in safety-critical applications where reliability is important.
