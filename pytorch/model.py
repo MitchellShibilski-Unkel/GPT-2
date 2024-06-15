@@ -2,6 +2,7 @@ import numpy as np
 from torch import nn
 from torch import Tensor
 from torch import no_grad
+from torch import range as trange
 from torch import zeros, ones, sqrt
 
 
@@ -44,3 +45,30 @@ def norm(x, *, axis=-1, epsilon=1e-5):
         s = ((x - u) ** 2).mean(axis=axis, keepdim=True)
         x = (x - u) / sqrt(s + epsilon) * g + b
         return x
+    
+def split_states(x, n):
+    # --- Reshape the last dimension of x into [n, x.shape[-1]/n] --- #
+    *start, m = shapeList(x)
+    return np.reshape(x, start + [n, m//n])
+
+def merge_states(x):
+    # --- Smash the last two dimensions of x into a single dimension --- #
+    *start, a, b = shapeList(x)
+    return np.reshape(x, start + [a * b])
+
+def attention_mask(nd, ns, *, dtype):
+    #* 1's in the lower triangle, counting from the lower right corner
+    #! Same as tf.matrix_band_part(tf.ones([nd, ns]), -1, ns-nd), but doesn't produce garbage on TPUs
+    
+    i = trange(nd)[:, None]
+    j = trange(ns)
+    m = i >= j - ns + nd
+    
+    return Tensor(m).to(device).dtype(dtype)
+
+def MLP(x, scope: int, n_state):
+    for r in range(scope):
+        nx = x.shape[-1].value
+        h = gelu(conv1d(x, 'c_fc', n_state))
+        h2 = conv1d(h, 'c_proj', nx)
+        return h2
